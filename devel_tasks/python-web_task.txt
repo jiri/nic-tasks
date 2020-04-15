@@ -1,0 +1,23 @@
+There are the following objects and their attributes:
+
+Domain:
+  - FQDN (Fully Qualified Domain Name)
+  - Date and time of creation
+  - Date and time of expiration
+  - Date and time of deletion
+
+Domain flag:
+  - Type (can have the following values):
+    - `EXPIRED` - domain expired
+    - `OUTZONE` - domain is not generated to the zone
+    - `DELETE_CANDIDATE` - domain is marked for deletion
+  - Date and time from which the flag is valid
+  - Date and time to which the flag is valid
+
+Tasks (preferably use Django, but you can use other web framework if you want):
+  - Create a database with the objects specified above
+  - Create a Domain detail web page. It will show the attributes of the Domain and its currently active flags (take into account that flags can be planned even to the future)
+  - Create a web page with a list of existing (not deleted) Domains. For each Domain, display its FQDN and currently active flags. The FQDN will also serve as a link to the Domain detail page.
+  - Write tests for Domain detail page.
+  - BONUS: Create a command/script, which will be run every day by cron daemon. This command will set "EXPIRED" Domain flag to all domains that have Expiration date this day.
+  - BONUS 2: Also write tests for the Domain list page and the command/script above.
