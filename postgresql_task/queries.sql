@@ -7,9 +7,9 @@ SELECT DISTINCT domain.fqdn
 CREATE OR REPLACE FUNCTION check_flag(fqdn_ VARCHAR(255), flag_ FLAG) RETURNS BOOLEAN
 AS $BODY$
 BEGIN
-	RETURN (
-	    SELECT COUNT(id) FROM domain_flag
-	        WHERE fqdn = fqdn_ AND flag = flag_ AND NOT now()::timestamp < lower(validity)
+    RETURN (
+        SELECT COUNT(id) FROM domain_flag
+            WHERE fqdn = fqdn_ AND flag = flag_ AND NOT now()::timestamp < lower(validity)
     ) > 0;
 END $BODY$ LANGUAGE plpgsql;
 
