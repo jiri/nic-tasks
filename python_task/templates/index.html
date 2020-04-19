@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="/static/bootstrap.min.css">
+    <title>Domains</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Domains</h1>
+        <ul class="list-group">
+            {% if not domains %}
+                <li>No entries yet.</li>
+            {% endif %}
+            {% for domain in domains %}
+                {% set flags = domain.active_flags() %}
+                <li class="list-group-item">
+                    <a href="/domain/{{ domain.id }}">{{ domain.fqdn }}</a>
+                    {% if FlagType.expired in flags %}
+                        <span class="badge badge-danger">expired</span>
+                    {% endif %}
+                    {% if FlagType.outzone in flags %}
+                        <span class="badge badge-secondary">outzone</span>
+                    {% endif %}
+                    {% if FlagType.deletion_candidate in flags %}
+                        <span class="badge badge-secondary">deletion_candidate</span>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

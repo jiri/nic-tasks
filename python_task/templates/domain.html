@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="/static/bootstrap.min.css">
+    <title>Domain | {{ domain.fqdn }}</title>
+</head>
+<body>
+    <div class="container">
+        {% set flags = domain.active_flags() %}
+
+        <h1>{{ domain.fqdn }}</h1>
+
+        <dl class="row">
+            <dt class="col-sm-2"><code>id</code></dt>
+            <dd class="col-sm-10">{{ domain.id }}</dd>
+            <dt class="col-sm-2"><code>fqdn</code></dt>
+            <dd class="col-sm-10">{{ domain.fqdn }}</dd>
+            <dt class="col-sm-2"><code>creation</code></dt>
+            <dd class="col-sm-10">{{ domain.creation or "-" }}</dd>
+            <dt class="col-sm-2"><code>expiration</code></dt>
+            <dd class="col-sm-10">{{ domain.expiration or "-" }}</dd>
+            <dt class="col-sm-2"><code>deletion</code></dt>
+            <dd class="col-sm-10">{{ domain.deletion or "-" }}</dd>
+
+            <dt class="col-sm-2">Active flags</dt>
+            <dd class="col-sm-10">
+                {% if FlagType.expired in flags %}
+                    <span class="badge badge-danger">expired</span>
+                {% endif %}
+                {% if FlagType.outzone in flags %}
+                    <span class="badge badge-secondary">outzone</span>
+                {% endif %}
+                {% if FlagType.deletion_candidate in flags %}
+                    <span class="badge badge-secondary">deletion_candidate</span>
+                {% endif %}
+            </dd>
+        </dl>
+    </div>
+</body>
+</html>
